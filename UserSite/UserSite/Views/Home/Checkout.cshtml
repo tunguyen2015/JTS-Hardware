@@ -1,0 +1,125 @@
+﻿@using UserSite.Models
+@model UserSite.CheckOut
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <br/>
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")" id="testing2">Home</a></li>
+                <li class="active">Check out</li>
+            </ol>
+        </div><!--/breadcrums-->
+
+        <div class="shopper-informations">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <div class="col-md-6">
+                        <div class="bill-to">
+                            <p>Shipping Information</p>
+                            <div class="form-one">
+                                @Html.ValidationMessageFor(model => model.ShippingAddress, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.ShippingAddress, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "Shipping Address"}})
+
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.PhoneNumber, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "Phone Number"}})
+
+                                @Html.ValidationMessageFor(model => model.City, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.City, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "City"}})
+
+                                @Html.ValidationMessageFor(model => model.Country, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.Country, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "Country"}})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bill-to">
+                            <p>MasterCard, Visa, American Express or Discover</p>
+                            <div class="form-one">                                
+                                @Html.ValidationMessageFor(model => model.CardNum, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.CardNum, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "Credit Card"}})
+
+                                @Html.ValidationMessageFor(model => model.ExpiredDate, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.ExpiredDate, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "Expired Date (mm/dd/yyyy)"}})
+
+                                @Html.ValidationMessageFor(model => model.CVV, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.CVV, new {htmlAttributes = new {@class = "check-out-info", @placeholder = "Security Code (CVV)"}})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" id="check-out" value="CHECK OUT">
+            }
+        </div>
+
+        <div class="revie-payment">
+            <h2>Review & Payment</h2>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                <tr class="cart_menu">
+                    <td class="image">Item</td>
+                    <td class="price">Price</td>
+                    <td class="quantity">Quantity</td>
+                    <td class="total">Total</td>
+                </tr>
+                </thead>
+                <tbody>
+                @{ decimal total = 0;}
+                @foreach (var checkout in (List<CartModels>) Session["Cart"])
+                {
+                    <tr>
+                        <td>
+                            <h4>@checkout.ProductName</h4>                            
+                        </td>
+                        <td>
+                            <div class="cart_quantity_button">
+                                @checkout.Price
+                            </div>                            
+                        </td>
+                        <td>
+                            <div class="cart_quantity_button">
+                                @checkout.Quantity
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">@checkout.Total</p>
+                        </td>
+                    </tr>
+                    total += (decimal) checkout.Total;
+                }
+                <tr>
+                    <td colspan="2">
+                        <table class="table table-condensed total-result">
+                            <tr class="shipping-cost">
+                                <td>Shipping Cost</td>
+                                <td>Free</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td><span>$@total</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/credit-card-validation.js"></script>
+}
+
+
+
+

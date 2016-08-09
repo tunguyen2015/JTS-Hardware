@@ -1,0 +1,77 @@
+﻿@using UserSite.Models
+@{
+    ViewBag.Title = "Cart";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <br />
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")" id="testing2">Home</a></li>
+                <li class="active">Summary</li>
+            </ol>
+        </div>
+        <h3>These are the items you bought:</h3>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>                        
+                    </tr>
+                </thead>
+                <tbody>
+                @{ decimal total = 0;}
+                @foreach (var cart in (List<CartModels>) ViewBag.Summary)
+                {
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="@cart.ProductImage" id="cart-image" alt="Cart Image"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">@cart.ProductName</a></h4>
+                            <p>ID: @cart.ProductId</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>@cart.Price</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                @cart.Quantity
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">@cart.Total</p>
+                            @{ total += cart.Total;}
+                        </td>                        
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>        
+    </div>
+</section> <!--/#cart_items-->
+
+<section id="do_action">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li>
+                            Total
+                            <span>
+                                $@total
+                            </span>
+                        </li>
+                        <li>Thank you for shopping at JTS Hardware</li>
+                    </ul>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#do_action-->

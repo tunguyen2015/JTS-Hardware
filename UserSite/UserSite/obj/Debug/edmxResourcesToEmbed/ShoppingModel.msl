@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShoppingModelStoreContainer" CdmEntityContainer="ShoppingEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="ShoppingModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckOuts">
+      <EntityTypeMapping TypeName="ShoppingModel.CheckOut">
+        <MappingFragment StoreEntitySet="CheckOut">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="DateOrdered" ColumnName="DateOrdered" />
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="CVV" ColumnName="CVV" />
+          <ScalarProperty Name="CardNum" ColumnName="CardNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="ShoppingModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddCategory" FunctionName="ShoppingModel.Store.AddCategory" />
+    <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="ShoppingModel.Store.AddProduct" />
+    <FunctionImportMapping FunctionImportName="AddView" FunctionName="ShoppingModel.Store.AddView" />
+    <FunctionImportMapping FunctionImportName="CountProductOfACategory" FunctionName="ShoppingModel.Store.CountProductOfACategory" />
+    <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="ShoppingModel.Store.DeleteCategory" />
+    <FunctionImportMapping FunctionImportName="DeleteProductByCategory" FunctionName="ShoppingModel.Store.DeleteProductByCategory" />
+    <FunctionImportMapping FunctionImportName="DeleteProductByID" FunctionName="ShoppingModel.Store.DeleteProductByID" />
+    <FunctionImportMapping FunctionImportName="GetAllCategory" FunctionName="ShoppingModel.Store.GetAllCategory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetAllCategory_Result">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllProduct" FunctionName="ShoppingModel.Store.GetAllProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetAllProduct_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCategoryByID" FunctionName="ShoppingModel.Store.GetCategoryByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetCategoryByID_Result">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetFourNewestProduct" FunctionName="ShoppingModel.Store.GetFourNewestProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetFourNewestProduct_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetFourNewestProductByCategory" FunctionName="ShoppingModel.Store.GetFourNewestProductByCategory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetFourNewestProductByCategory_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProductByCategory" FunctionName="ShoppingModel.Store.GetProductByCategory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetProductByCategory_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProductByID" FunctionName="ShoppingModel.Store.GetProductByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetProductByID_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSixFeaturedProduct" FunctionName="ShoppingModel.Store.GetSixFeaturedProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetSixFeaturedProduct_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetThreeNewestProduct" FunctionName="ShoppingModel.Store.GetThreeNewestProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShoppingModel.GetThreeNewestProduct_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="ShoppingModel.Store.UpdateCategory" />
+    <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="ShoppingModel.Store.UpdateProduct" />
+  </EntityContainerMapping>
+</Mapping>

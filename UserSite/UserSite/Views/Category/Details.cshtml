@@ -1,0 +1,67 @@
+﻿@using System.Activities.Statements
+@model UserSite.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+<br/>
+<section>
+    <div class="container">        
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")" id="testing2">Home</a></li>
+                <li class="active">@Model.Title</li>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default">
+                            @foreach (var cate in (List<Category>) ViewBag.AllCate)
+                            {
+                                var count = new ShoppingEntities().Products.Count(p => p.CategoryID.Equals(cate.CategoryID));
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="@Url.Action("Details", "Category", new {id = @cate.CategoryID})">
+                                            @cate.Title
+                                            <span class="badge pull-right">
+                                                (@count)
+                                            </span> 
+                                        </a>
+                                    </h4>
+                                </div>
+                            }
+                        </div>
+                        <!--/category-products-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <h2 class="title text-center">@Model.Title</h2><br/>
+                    @foreach (var prod in ViewBag.Prod)
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="@prod.ImageUrl" alt=""/>
+                                        <h2>@prod.Price</h2>
+                                        <p>@prod.Title</p>
+                                        @Html.ActionLink("View Details", "Index", "ProductDetails", new {id = @prod.ProductID},
+                                            new {@class = "btn btn-primary"})
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div><!--features_items-->
+            </div>
+        </div>
+    </div>
+</section>

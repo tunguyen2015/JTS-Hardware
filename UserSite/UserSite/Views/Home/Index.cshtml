@@ -1,0 +1,196 @@
+﻿@model IEnumerable<UserSite.Category>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--slider-->
+<section id="slider">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider-carousel" data-slide-to="1"></li>
+                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        @{ var isFirst = true;}
+                        @foreach (var prod in ViewBag.ThreeNewestProducts)
+                        {
+                            if (isFirst)
+                            {
+                                <div class="item active">
+                                    <div class="col-sm-6">
+                                        <h1>
+                                            <span>@prod.Title</span>
+                                        </h1>
+                                        <h2>Price: $@prod.Price</h2>
+                                        <p>@prod.ShortDescription</p>
+                                        @Html.ActionLink("View Details", "Index", "ProductDetails", new {id = @prod.ProductID},
+                                            new {@class = "btn btn-primary"})
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="@prod.ImageUrl" class="girl img-responsive" alt="Product Image"/>
+                                    </div>
+                                </div>
+                                isFirst = false;
+                            }
+                            else
+                            {
+                                <div class="item">
+                                    <div class="col-sm-6">
+                                        <h1>
+                                            <span>@prod.Title</span>
+                                        </h1>
+                                        <h2>Price: $@prod.Price</h2>
+                                        <p>@prod.ShortDescription</p>
+                                        @Html.ActionLink("View Details", "Index", "ProductDetails", new {id = @prod.ProductID},
+                                            new {@class = "btn btn-primary"})
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="@prod.ImageUrl" class="girl img-responsive" alt="Product Image"/>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        @{ isFirst = true;}
+                    </div>
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/slider-->
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--categories-->
+                        <div class="panel panel-default">
+                            @foreach (var cate in Model)
+                            {
+                                var count = new ShoppingEntities().Products.Count(p => p.CategoryID.Equals(cate.CategoryID));
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">                                        
+                                        <a href="@Url.Action("Details", "Category", new {id = @cate.CategoryID})">
+                                            @cate.Title
+                                            <span class="badge pull-right">                                                
+                                                <b>(@count)</b>
+                                            </span>
+                                        </a>
+                                    </h4>
+                                </div>
+                            }
+                        </div>
+                    </div><!--/categories-->
+                </div>
+            </div>
+            <div class="col-sm-9 padding-right">
+                <!--features_items-->
+                <div class="features_items">
+                    <h2 class="title text-center">Featured Items</h2>
+                    @foreach (var prod in ViewBag.SixFeaturedProducts)
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">                                        
+                                        <img src="@prod.ImageUrl" id="featured-image" alt="Top six product"/>                                        
+                                        <h2>@prod.Price</h2>
+                                        <p>@prod.Title</p>
+                                        @Html.ActionLink("View Details", "Index", "ProductDetails", new { id = @prod.ProductID },
+                                            new { @class = "btn btn-primary" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!--features_items-->
+
+                <!--category-tab-->
+                <div class="category-tab">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            @foreach (var cate in Model)
+                            {
+                                if (isFirst)
+                                {
+                                    <li class="active"><a href="#@cate.CategoryID" data-toggle="tab">@cate.Title</a></li>
+                                    isFirst = false;
+                                }
+                                else
+                                {
+                                    <li><a href="#@cate.CategoryID" data-toggle="tab">@cate.Title</a></li>
+                                }
+                            }
+                            @{ isFirst = true;}
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        @foreach (var cate in Model)
+                        {
+                            if (isFirst)
+                            {
+                                <div class="tab-pane fade active in" id="@cate.CategoryID">
+                                    @{ var products = new ShoppingEntities().GetFourNewestProductByCategory(cate.CategoryID);}
+                                    @foreach (var prodByCate in products)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="product-image-wrapper">
+                                                <div class="single-products">
+                                                    <div class="productinfo text-center">                                                        
+                                                        <img src="@prodByCate.ImageUrl" alt=""/>                                                        
+                                                        <h2>@prodByCate.Price</h2>
+                                                        <p>@prodByCate.Title</p>
+                                                        @Html.ActionLink("View Details", "Index", "ProductDetails", new { id = @prodByCate.ProductID },
+                                                            new { @class = "btn btn-primary" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                isFirst = false;
+                            }
+                            else
+                            {
+                                <div class="tab-pane fade" id="@cate.CategoryID">
+                                    @{ var products = new ShoppingEntities().GetFourNewestProductByCategory(cate.CategoryID);}
+                                    @foreach (var prodByCate in products)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="product-image-wrapper">
+                                                <div class="single-products">
+                                                    <div class="productinfo text-center">                                                        
+                                                        <img src="@prodByCate.ImageUrl" alt=""/>                                                        
+                                                        <h2>@prodByCate.Price</h2>
+                                                        <p>@prodByCate.Title</p>
+                                                        @Html.ActionLink("View Details", "Index", "ProductDetails", new { id = @prodByCate.ProductID },
+                                                            new { @class = "btn btn-primary" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <!--/category-tab-->
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,99 @@
+﻿@model UserSite.Models.CartModels
+@{
+    ViewBag.Title = "Details";
+}
+<br/>
+<section>
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")" id="testing2">Home</a></li>
+                <li class="active">@ViewBag.Product.Title</li>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default">
+                            @foreach (var cate in (List<Category>) ViewBag.Category)
+                            {
+                                var count = new ShoppingEntities().Products.Count(p => p.CategoryID.Equals(cate.CategoryID));
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="@Url.Action("Details", "Category", new {id = @cate.CategoryID})">
+                                            @cate.Title
+                                            <span class="badge pull-right">
+                                                <b>(@count)</b>
+                                            </span>                                        
+                                        </a>
+                                    </h4>
+                                </div>
+                            }
+                        </div>
+                    </div><!--/category-products-->
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="product-details">
+                    <!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="@ViewBag.Product.ImageUrl" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information">
+                            <!--/product-information-->
+                            @using (Html.BeginForm("Index", "ProductDetails", new
+                            {
+                                image = ViewBag.Product.ImageUrl, title = ViewBag.Product.Title,
+                                productId = ViewBag.Product.ProductID, price = ViewBag.Product.Price
+                            }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <h2>@ViewBag.Product.Title</h2>
+                                @Html.ValidationMessageFor(model => model.Quantity, "", new {@class = "text-danger"})
+                                <span>
+                                    <span>@ViewBag.Product.Price</span>
+                                    <label>Quantity:</label>                                    
+                                    @Html.EditorFor(model => model.Quantity, new {htmlAttributes = new {@type = "number", @min = "1"}})                                    
+                                    <br/>                                
+                                </span>
+                                <p><b>Availability:</b> In Stock
+                                </p>
+                                <p><b>Condition:</b> New
+                                </p>
+                                <b>Brief: </b>@ViewBag.Product.ShortDescription
+                                <br>
+                                <br>
+                                <input type="submit" class="btn btn-default add-to-cart" id="testing" value="Add To Cart"/>
+                            }
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+
+                <div class="category-tab shop-details-tab">
+                    <!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab">Details</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="reviews">
+                            <div class="col-sm-12">
+                                <p>@ViewBag.Product.LongDescription</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!--/category-tab-->
+            </div>
+        </div>
+    </div>
+</section>

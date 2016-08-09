@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__Categor__1273C1CD" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="CheckOut">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShippingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="DateOrdered" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ExpiredDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CVV" Type="Int32" Nullable="false" />
+    <Property Name="CardNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Viewed" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__1273C1CD" FromRole="Product" ToRole="Category" />
+  </EntityType>
+  <Association Name="FK__Product__Categor__1273C1CD">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShoppingEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="CheckOuts" EntityType="Self.CheckOut" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <AssociationSet Name="FK__Product__Categor__1273C1CD" Association="Self.FK__Product__Categor__1273C1CD">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <FunctionImport Name="AddCategory">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="ImageUrl" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddProduct">
+      <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Short" Mode="In" Type="String" />
+      <Parameter Name="Long" Mode="In" Type="String" />
+      <Parameter Name="Image" Mode="In" Type="String" />
+      <Parameter Name="Price" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="AddView">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CountProductOfACategory" ReturnType="Collection(Int32)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteCategory">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteProductByCategory">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteProductByID">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllCategory" ReturnType="Collection(ShoppingModel.GetAllCategory_Result)" />
+    <FunctionImport Name="GetAllProduct" ReturnType="Collection(ShoppingModel.GetAllProduct_Result)" />
+    <FunctionImport Name="GetCategoryByID" ReturnType="Collection(ShoppingModel.GetCategoryByID_Result)">
+      <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetFourNewestProduct" ReturnType="Collection(ShoppingModel.GetFourNewestProduct_Result)" />
+    <FunctionImport Name="GetFourNewestProductByCategory" ReturnType="Collection(ShoppingModel.GetFourNewestProductByCategory_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByCategory" ReturnType="Collection(ShoppingModel.GetProductByCategory_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByID" ReturnType="Collection(ShoppingModel.GetProductByID_Result)">
+      <Parameter Name="ProductId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetSixFeaturedProduct" ReturnType="Collection(ShoppingModel.GetSixFeaturedProduct_Result)" />
+    <FunctionImport Name="GetThreeNewestProduct" ReturnType="Collection(ShoppingModel.GetThreeNewestProduct_Result)" />
+    <FunctionImport Name="UpdateCategory">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="ImageUrl" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateProduct">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="CateID" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="ShortD" Mode="In" Type="String" />
+      <Parameter Name="LongD" Mode="In" Type="String" />
+      <Parameter Name="Image" Mode="In" Type="String" />
+      <Parameter Name="Price" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetAllCategory_Result">
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAllProduct_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetCategoryByID_Result">
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetFourNewestProduct_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetFourNewestProductByCategory_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetProductByCategory_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetProductByID_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetSixFeaturedProduct_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetThreeNewestProduct_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="String" Name="ShortDescription" Nullable="false" />
+    <Property Type="String" Name="LongDescription" Nullable="false" />
+    <Property Type="String" Name="ImageUrl" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Viewed" Nullable="true" />
+  </ComplexType>
+</Schema>

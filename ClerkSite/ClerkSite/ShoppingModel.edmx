@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ShortDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LongDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Viewed" Type="int" />
+        </EntityType>
+        <Association Name="FK__Product__Categor__1273C1CD">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ImageUrl" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Short" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Long" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Image" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="DeleteCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetCategoryByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ImageUrl" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CateID" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ShortD" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LongD" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Image" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+        </Function>
+        <EntityContainer Name="ShoppingModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Product__Categor__1273C1CD" Association="Self.FK__Product__Categor__1273C1CD">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Categor__1273C1CD" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__1273C1CD" FromRole="Product" ToRole="Category" />
+          <Property Name="Viewed" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Product__Categor__1273C1CD">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK__Product__Categor__1273C1CD" Association="Self.FK__Product__Categor__1273C1CD">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <FunctionImport Name="AddCategory">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddProduct">
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Short" Mode="In" Type="String" />
+            <Parameter Name="Long" Mode="In" Type="String" />
+            <Parameter Name="Image" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteCategory">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductByCategory">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductByID">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCategory" ReturnType="Collection(ShoppingModel.GetAllCategory_Result)" />
+          <FunctionImport Name="GetAllProduct" ReturnType="Collection(ShoppingModel.GetAllProduct_Result)" />
+          <FunctionImport Name="GetCategoryByID" ReturnType="Collection(ShoppingModel.GetCategoryByID_Result)">
+          <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByCategory" ReturnType="Collection(ShoppingModel.GetProductByCategory_Result)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByID" ReturnType="Collection(ShoppingModel.GetProductByID_Result)">
+          <Parameter Name="ProductId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateCategory">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProduct">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CateID" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="ShortD" Mode="In" Type="String" />
+            <Parameter Name="LongD" Mode="In" Type="String" />
+            <Parameter Name="Image" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetAllCategory_Result">
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllProduct_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="String" Name="ShortDescription" Nullable="false" />
+          <Property Type="String" Name="LongDescription" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="GetCategoryByID_Result">
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetProductByCategory_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="String" Name="ShortDescription" Nullable="false" />
+          <Property Type="String" Name="LongDescription" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="GetProductByID_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="String" Name="ShortDescription" Nullable="false" />
+          <Property Type="String" Name="LongDescription" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoppingModelStoreContainer" CdmEntityContainer="ShoppingEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ShoppingModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ShoppingModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddCategory" FunctionName="ShoppingModel.Store.AddCategory" />
+          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="ShoppingModel.Store.AddProduct" />
+          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="ShoppingModel.Store.DeleteCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteProductByCategory" FunctionName="ShoppingModel.Store.DeleteProductByCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteProductByID" FunctionName="ShoppingModel.Store.DeleteProductByID" />
+          <FunctionImportMapping FunctionImportName="GetAllCategory" FunctionName="ShoppingModel.Store.GetAllCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoppingModel.GetAllCategory_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllProduct" FunctionName="ShoppingModel.Store.GetAllProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoppingModel.GetAllProduct_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCategoryByID" FunctionName="ShoppingModel.Store.GetCategoryByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoppingModel.GetCategoryByID_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProductByCategory" FunctionName="ShoppingModel.Store.GetProductByCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoppingModel.GetProductByCategory_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProductByID" FunctionName="ShoppingModel.Store.GetProductByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoppingModel.GetProductByID_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="ShoppingModel.Store.UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="ShoppingModel.Store.UpdateProduct" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
