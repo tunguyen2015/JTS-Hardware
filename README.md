@@ -1,4 +1,8 @@
-Team member: Bui Quang Dien (s3445846), Nguyen Trung Tu (s3463610), Phan Van Trung (s3479773)
+This website is built by Mr. Bui Quang Dien (s3445846), me (s3463610) and Mr. Phan Van Trung (s3479773) as part of the Web Development Technologies course project. It features a casual business/e-commerce website with all the required fundamental functions. The technologies used include ASP.NET, MVC4, Entity Framework and Microsoft SQL Server 2014.
+
+The joint project can also be found at Mr. Dien's GitHub at: https://github.com/joebui/ShoppingCart
+
+**Important Note:
 
 ClearSite is the Web Form application for admin usage only.
 UserSite is the MVC application for users to buy products
@@ -8,11 +12,11 @@ the location of the Shopping.mdf file in your machine.
 
 E.g. In the Web.Config File:
 <connectionStrings>
-	<add name="DefaultConnection" connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=C:\Users\Dien\Documents\GitHub\ShoppingCart\ClerkSite\ClerkSite\App_Data\Shopping.mdf;Initial Catalog=aspnet-UserSite-20150812124742;Integrated Security=True" providerName="System.Data.SqlClient" />
-	<add name="ShoppingEntities" connectionString="metadata=res://*/ShoppingModel.csdl|res://*/ShoppingModel.ssdl|res://*/ShoppingModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDb)\MSSQLLocalDB;attachdbfilename=C:\Users\Dien\Documents\GitHub\ShoppingCart\ClerkSite\ClerkSite\App_Data\Shopping.mdf;initial catalog=aspnet-UserSite-20150812124742;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+	<add name="DefaultConnection" connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=C:\Users\Tu\Documents\GitHub\ShoppingCart\ClerkSite\ClerkSite\App_Data\Shopping.mdf;Initial Catalog=aspnet-UserSite-20150812124742;Integrated Security=True" providerName="System.Data.SqlClient" />
+	<add name="ShoppingEntities" connectionString="metadata=res://*/ShoppingModel.csdl|res://*/ShoppingModel.ssdl|res://*/ShoppingModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDb)\MSSQLLocalDB;attachdbfilename=C:\Users\Tu\Documents\GitHub\ShoppingCart\ClerkSite\ClerkSite\App_Data\Shopping.mdf;initial catalog=aspnet-UserSite-20150812124742;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
 </connectionStrings>
 
-"C:\Users\Dien\Documents\GitHub\ShoppingCart\ClerkSite\ClerkSite\App_Data\Shopping.mdf" MUST BE REPLACED to match with the link on your machine.
+"C:\Users\Tu\Documents\GitHub\ShoppingCart\ClerkSite\ClerkSite\App_Data\Shopping.mdf" MUST BE REPLACED to match with the link on your machine.
 
 References:
 https://shapebootstrap.net/item/1524993-eshopper-best-free-ecommerce-html-template
